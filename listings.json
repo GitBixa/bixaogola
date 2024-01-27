@@ -1,0 +1,56 @@
+[
+  {
+    "listing": "/research_events/index.html",
+    "items": [
+      "/research_events/workshop/index.html",
+      "/research_events/conferences/PDRconference.html"
+    ]
+  },
+  {
+    "listing": "/publicationHOME.html",
+    "items": [
+      "/research_events/articles/PDRpaper.html",
+      "/research_events/articles/mastersDissertation.html",
+      "/research_events/conferences/PDRconference.html"
+    ]
+  },
+  {
+    "listing": "/Projects/ProjectIndex.html",
+    "items": [
+      "/Projects/project_list/maled/index.html",
+      "/Projects/project_list/PhD/index.html"
+    ]
+  },
+  {
+    "listing": "/OB Blog/BlogIndex.html",
+    "items": [
+      "/OB Blog/posts/MarkdownEditorsDissertation/index.html",
+      "/OB Blog/posts/quartzy_presentation/index.html",
+      "/OB Blog/posts/zotero_intro/index.html",
+      "/OB Blog/posts/zotero_advantages/index.html",
+      "/OB Blog/posts/Rstudio_versatility/index.html",
+      "/OB Blog/posts/Shiny_for_HIV-incidence/index.html",
+      "/OB Blog/posts/bdfacspresto_presentation/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/OB Blog/posts/MarkdownEditorsDissertation/index.html",
+      "/OB Blog/posts/Shiny_for_HIV-incidence/index.html",
+      "/OB Blog/posts/zotero_intro/index.html",
+      "/Projects/project_list/maled/index.html",
+      "/Projects/project_list/PhD/index.html",
+      "/research_events/workshop/Ethics_workshop/index.html",
+      "/research_events/workshop/sequencing/index.html"
+    ]
+  },
+  {
+    "listing": "/research_events/workshop/index.html",
+    "items": [
+      "/research_events/workshop/Ethics_workshop/index.html",
+      "/research_events/workshop/sequencing/index.html",
+      "/research_events/workshop/high_school_workshop/index.html"
+    ]
+  }
+]

@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Bixa Ogola">
+<meta name="description" content="This is a description box">
+
+<title>Bixa O. Ogola - How RStudio can be benefitial for researchers</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-W78SCS8X63"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-W78SCS8X63', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: gray;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: gray;
+background-image: url(Rlogo.png);
+background-size: cover;
+      }
+</style>
+
+
+<meta property="og:title" content="Bixa O. Ogola - How RStudio can be benefitial for researchers">
+<meta property="og:description" content="RStudio as a research data analysis, communication and collaborative platform">
+<meta property="og:image" content="Rlogo.png">
+<meta property="og:site_name" content="Bixa O. Ogola">
+<meta name="twitter:title" content="Bixa O. Ogola - How RStudio can be benefitial for researchers">
+<meta name="twitter:description" content="RStudio as a research data analysis, communication and collaborative platform">
+<meta name="twitter:image" content="Rlogo.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-sm " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Bixa O. Ogola</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text"><i class="fa-solid fa-house-user"></i> Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../Projects/ProjectIndex.html"> 
+<span class="menu-text"><i class="bi bi-kanban-fill"></i> Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../publicationHOME.html"> 
+<span class="menu-text"><i class="bi bi-book-half"></i> Publications</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-i-classfa-regular-fa-calendar-checki-research-events" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text"><i class="fa-regular fa-calendar-check"></i> Research events</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-i-classfa-regular-fa-calendar-checki-research-events">    
+        <li>
+    <a class="dropdown-item" href="../../../research_events/workshop/index.html">
+ <span class="dropdown-text"><i class="fa-solid fa-person-chalkboard"></i> Workshops</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-i-classfa-regular-fa-pen-to-squarei-blogs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text"><i class="fa-regular fa-pen-to-square"></i> Blogs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-i-classfa-regular-fa-pen-to-squarei-blogs">    
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/BlogIndex.html">
+ <span class="dropdown-text"><i class="fa-regular fa-pen-to-square"></i> Blogs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/Rstudio_versatility/index.html">
+ <span class="dropdown-text">1. RStudio functionalities beneficial for academics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/Shiny_for_HIV-incidence/index.html">
+ <span class="dropdown-text">2. Building an interactive web application using RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/zotero_intro/index.html">
+ <span class="dropdown-text">3. Zotero - An Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/zotero_advantages/index.html">
+ <span class="dropdown-text">4. Zotero - Highlights and Lowlights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/bdfacspresto_presentation/index.html">
+ <span class="dropdown-text">5. BDFacsPresto CD4 cell counting presentation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/MarkdownEditorsDissertation/index.html">
+ <span class="dropdown-text">6. Markdown editors for long form academic document drafting</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/quartzy_presentation/index.html">
+ <span class="dropdown-text">7. QUARTZY - A Laboratory management application</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="fa-solid fa-eye"></i> Snapshot</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/ogola_bixa"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://za.linkedin.com/in/bixa-ogola-5bb72a8b"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">How RStudio can be benefitial for researchers</h1>
+                  <div>
+        <div class="description">
+          RStudio as a research data analysis, communication and collaborative platform
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">RStudio</div>
+                <div class="quarto-category">Posit</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-left">
+
+      <div>
+      <div class="quarto-title-meta-heading">AUTHOR</div>
+      <div class="quarto-title-meta-contents">
+               <p>Bixa Ogola </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">31-July-2023</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Updated</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">31-July-2023</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Excerpt</div>
+      RStudio, (now known as <a href="https://posit.co/">Posit</a> as of November 2022) is a comprehensive, integrated development environment (IDE). RStudio empowers academic researchers by streamlining data analysis, foster collaboration and expand functionality with packages and libraries. This blog will highlight these benefits for using RStudio as a research data analysis, communication and collaborative tool.
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/65b0815a1030812380535d706/2b69c534c5d445a12376a37f7.js");</script>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">RStudio - A Data analysis and visualization tool</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul>
+  <li><a href="#streamlining-data-analysis" id="toc-streamlining-data-analysis" class="nav-link" data-scroll-target="#streamlining-data-analysis">1. Streamlining Data Analysis</a></li>
+  <li><a href="#collaborative-capabilities" id="toc-collaborative-capabilities" class="nav-link" data-scroll-target="#collaborative-capabilities">2. Collaborative Capabilities</a></li>
+  <li><a href="#expanding-functionality-with-packages-and-libraries" id="toc-expanding-functionality-with-packages-and-libraries" class="nav-link" data-scroll-target="#expanding-functionality-with-packages-and-libraries">3. Expanding Functionality with Packages and Libraries</a></li>
+  <li><a href="#rstudio-as-a-website-and-blogging-platform" id="toc-rstudio-as-a-website-and-blogging-platform" class="nav-link" data-scroll-target="#rstudio-as-a-website-and-blogging-platform">4. Rstudio as a website and blogging platform</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#resources-for-further-reading" id="toc-resources-for-further-reading" class="nav-link" data-scroll-target="#resources-for-further-reading">Resources for further reading</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
+
+
+
+
+<!-- BEGIN SHAREAHOLIC CODE -->
+<link rel="preload" href="https://cdn.shareaholic.net/assets/pub/shareaholic.js" as="script">
+<meta name="shareaholic:site_id" content="a8456cc421bd75e208d6d6e19f6e70a3">
+<script data-cfasync="false" async="" src="https://cdn.shareaholic.net/assets/pub/shareaholic.js"></script>
+<!-- END SHAREAHOLIC CODE -->
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>RStudio is a widely used and highly versatile tool for statistical analysis, data analysis, data visualization and online publishing. It is favored by researchers, data scientists, and statisticians for its extensive features and capabilities. In this blog, we will explore the benefits and versatility of RStudio, highlighting some of its functionalities and capabilities as a research platform.</p>
+<section id="streamlining-data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="streamlining-data-analysis">1. Streamlining Data Analysis</h2>
+<p>RStudio presents a comprehensive and user-friendly platform that consolidates a multitude of data analysis tasks within a single interface. Its notable stability and efficiency render it an optimal choice for managing extensive datasets, mitigating the performance challenges that may arise when employing alternative data analysis platforms. The seamless integration of RStudio with popular data manipulation packages such as <a href="https://readxl.tidyverse.org/reference/read_excel.html">readxl</a>, <a href="https://tidyr.tidyverse.org/">tidyr</a> and <a href="https://dplyr.tidyverse.org/index.html">dplyr</a> empowers users to effortlessly import, cleanse, transform, and reshape data, thereby ensuring data preparedness for subsequent analyses.</p>
+<p>Facilitating a diverse range of file formats, including CSV, Excel, JSON, and SQL databases, RStudio offers users the convenience of swift data importation through succinct lines of code or the user-friendly import wizard. Additionally, RStudio extends its capabilities to establish direct connections with databases, facilitating real-time data querying and analysis. This adaptability in data importation equips users to proficiently work with heterogeneous datasets, guaranteeing a seamless data analysis experience within the RStudio environment.</p>
+<p>Furthermore, RStudio’s support of Markdown contributes further to augmenting the data analysis workflow, enabling users to compose reports and manuscripts alongside their data analysis code. The integration of R Markdown empowers users to embed code, visualizations, and explanatory text within a single document, fostering reproducibility and encouraging collaborative efforts. This amalgamation of functionalities elevates RStudio’s status as an indispensable research platform, assuring proficiency and effectiveness in data analysis endeavors.</p>
+</section>
+<section id="collaborative-capabilities" class="level2">
+<h2 class="anchored" data-anchor-id="collaborative-capabilities">2. Collaborative Capabilities</h2>
+<p>The cultivation of collaborative efforts is of paramount importance in the composition of research reports, and RStudio stands as an instrumental tool offering robust features that facilitate effective collaboration among team members. By providing support for multiple programming languages, including R and Python, RStudio accommodates diverse coding preferences and engenders seamless collaboration between individuals possessing varying skill sets.</p>
+<p>Central to RStudio’s collaborative workflows is its built-in version control system, which adeptly tracks changes made by each collaborator and streamlines the process of merging code alterations. Through seamless integration with Git and GitHub, RStudio ensures efficient version control and facilitates smooth collaboration both within and across teams. By enabling functionalities such as repository cloning, change pulling, and updates pushing directly from within the RStudio interface, team members can collaborate harmoniously on projects and ensure alignment with the most up-to-date codebase.</p>
+<p>To foster collaboration and knowledge sharing, RStudio boasts features such as RStudio Connect, a centralized platform facilitating the sharing of Shiny apps and R Markdown documents among team members. This engenders a transparent environment that encourages constructive feedback and facilitates the dissemination of insights and discoveries.</p>
+<p>Beyond promoting collaboration within teams, RStudio actively encourages collaboration among data professionals through its vibrant and engaged community. The RStudio Community Forum serves as a dynamic hub, where users can pose inquiries, share insights, and engage in discussions on various RStudio-related topics. Within this community-driven ecosystem, users can seek assistance, offer guidance, and exchange ideas with like-minded individuals, thereby accessing a wealth of knowledge and expertise. This communal spirit further bolsters users’ ability to collaborate effectively and tackle intricate challenges encountered in the realm of data analysis.</p>
+</section>
+<section id="expanding-functionality-with-packages-and-libraries" class="level2">
+<h2 class="anchored" data-anchor-id="expanding-functionality-with-packages-and-libraries">3. Expanding Functionality with Packages and Libraries</h2>
+<p>The true prowess of RStudio lies in its expansive ecosystem of packages and libraries, elevating its functionality to meet diverse data analysis and visualization requirements. Within the R ecosystem, a wide array of packages span various domains, encompassing data manipulation, statistical modeling, machine learning, natural language processing, and geospatial analysis, among others. These packages, diligently developed and maintained by a dedicated community of contributors, grant users access to cutting-edge tools and techniques. Prominent among these are statistical packages such as gtsummary, stats, lme4, and caret, endowing researchers with the capability to conduct an extensive spectrum of analyses, ranging from fundamental descriptive statistics to sophisticated machine learning algorithms. Leveraging these packages, researchers can seamlessly apply advanced methodologies to their datasets, unearthing meaningful insights and fostering data-driven decision-making.</p>
+<p>One standout feature of RStudio is the inclusion of the “shiny” package, which empowers users to directly create interactive web applications within the RStudio environment. With “shiny,” users can fashion dynamic and interactive dashboards, data exploration tools, and decision support systems. This facility to develop web applications without necessitating extensive web development expertise broadens the horizons for data scientists, enabling them to share their insights and findings with a broader audience. See <a href="../../../OB Blog/posts/Shiny_for_HIV-incidence/index.html">example of an interactive web app</a> designed using shiny package</p>
+<p>Another popularly known package within to RStudio’s repertoire is the <a href="https://ggplot2.tidyverse.org/">Grammar of Graphics (ggplot)</a> package. The package provides users with a potent toolset to craft visually captivating and customizable plots and charts. Users can effortlessly construct a wide spectrum of visualizations, ranging from rudimentary bar charts and scatter plots to intricate layered plots and heatmaps. Armed with “ggplot2’s” intuitive syntax and extensive customization options, users can adeptly communicate their data-driven narratives, conveying complex information in a visually captivating manner.</p>
+<p>Moreover, RStudio’s integration with the “Leaflet” package introduces interactive mapping capabilities to data analysis projects. <a href="https://rstudio.github.io/leaflet/">Leaflet</a> is an open-source JavaScript library that empowers users to create interactive maps, replete with features such as zooming, panning, and information pop-up windows. Merging the power of “Leaflet” with RStudio’s data manipulation capabilities, users can overlay data on maps, conduct spatial queries, and gain valuable insights into spatial patterns and relationships. This symbiosis opens up novel avenues for spatial data analysis and visualization, enabling users to explore geographic trends and make well-informed decisions grounded in location-specific information.</p>
+<p>Beyond these prominent packages, RStudio’s ecosystem hosts a plethora of specialized offerings that cater to distinct data analysis requirements. Noteworthy examples include the “caret” package, which presents a unified interface for training and evaluating machine learning models, streamlining the process of model development and selection, and the “forecast” package, providing functions for time series forecasting, enabling users to make predictions based on historical data patterns. These instances merely scratch the surface of the extensive array of packages available within the R ecosystem, underscoring the versatility and power of RStudio as an indispensable data analysis tool.</p>
+</section>
+<section id="rstudio-as-a-website-and-blogging-platform" class="level2">
+<h2 class="anchored" data-anchor-id="rstudio-as-a-website-and-blogging-platform">4. Rstudio as a website and blogging platform</h2>
+<p>In addition to its robust data analysis and visualization capabilities, RStudio also serves as a potent website and blogging platform, specifically tailored to cater to the needs of researchers. The seamless integration of <a href="https://rmarkdown.rstudio.com/">R Markdown</a> within RStudio facilitates the effortless creation of static websites and blogs directly within the platform. By seamlessly combining text, code, visualizations, and interactive elements, users can effectively convey their data-driven narratives and captivate their audience with engaging content.</p>
+<p>R Markdown’s inherent flexibility empowers users to personalize the layout and design of their websites, affording them the freedom to incorporate various HTML and CSS elements, thereby crafting visually appealing and professional online presentations. This adaptability allows researchers to present their work in a manner that aligns with their unique style and branding.</p>
+<p>Moreover, RStudio’s publishing capabilities streamline the process of deploying websites and blogs to diverse hosting platforms, broadening their reach and accessibility to a wider audience. This convenience removes any technical hurdles that might otherwise impede researchers from sharing their valuable work with the world.</p>
+<p>Whether the purpose is to showcase data analysis projects, disseminate research findings, or meticulously document data science workflows, RStudio provides an integrated and seamless platform that empowers researchers to create compelling websites and blogs enriched with dynamic content and interactivity. This feature-rich environment affords researchers an ideal outlet to present their insights and discoveries, fostering effective knowledge dissemination and encouraging collaboration and engagement from their peers and the broader community.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>RStudio is as an indispensable tool for researchers, data scientists, and statisticians, offering an extensive and versatile platform for data analysis, visualization, collaboration and technical publishing. With its robust ecosystem of packages and libraries, RStudio caters to diverse data analysis needs, spanning from fundamental statistical analyses to advanced machine learning and geospatial techniques. Its seamless integration of R Markdown allows for the creation of interactive web applications, dynamic dashboards, and data exploration tools, making data-driven narratives accessible to a wider audience without the need for extensive web development knowledge. RStudio’s user-friendly interface and efficient version control system facilitate collaboration within teams and across data professionals.</p>
+<p>Furthermore, RStudio serves as a seamless and integrated environment for researchers to to easily share their work with a broader audience, promoting transparency, knowledge dissemination, and fruitful collaborations.</p>
+<p>Overall, RStudio stands as a valuable ally for researchers seeking to leverage cutting-edge tools and techniques in data analysis, visualization, and communication. Its versatility, efficiency, and user-friendly interface solidify its position as an indispensable asset in the realm of data-driven research and decision-making.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Was this interesting?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Please share your thoughts, interests and questions in the comments below or on the upper right side of the page.</p>
+<p>Feel free to share this page on your preferred social media platforms using the sharing options conveniently located on this page.</p>
+</div>
+</div>
+</section>
+<section id="resources-for-further-reading" class="level1">
+<h1>Resources for further reading</h1>
+<ol type="1">
+<li><a href="www.quarto.org">Quarto</a></li>
+<li><a href="https://community.rstudio.com/">Posit community</a></li>
+<li><a href="https://posit.co/">Posit The Open-Source Data Science Company</a></li>
+<li><a href="https://shiny.posit.co/">Shiny</a></li>
+</ol>
+<b>
+
+</b></section><b>
+
+</b></main><b> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="GitBixa/bixaogola" issue-term="pathname" theme="photon-dark" crossorigin="anonymous" async="">
+</script>
+</b></div><b> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://quarto.org/">
+<p>Built with <a href="https://quarto.org/">Quarto</a> v.1.3</p>
+</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+<p><b>Copyright © 2023 Bixa Ogola<br><br><br>The views expressed on this site are my own and do not necessarily reflect those of any person(s) or instititution(s)</b></p><b>
+</b><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div><b>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Bixa-Ogola">
+<p><i class="fa-brands fa-researchgate" aria-label="researchgate"></i> <br> ResearchGate</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0002-0744-0602">
+<p><i class="fa-brands fa-orcid" aria-label="orcid"></i> <br> Orcid</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/ogola_bixa">
+<p><i class="fa-brands fa-twitter" aria-label="twitter"></i> <br> Twitter</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://za.linkedin.com/in/bixa-ogola-5bb72a8b">
+<p><i class="fa-brands fa-linkedin" aria-label="linkedin"></i> <br> LinkedIn</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="mailto:bixa.ogola@gmail.com">
+<p><i class="fa-solid fa-envelope" aria-label="envelope"></i> <br> Email</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://scholar.google.com/citations?user=lL6DTfUAAAAJ&amp;hl=en">
+<p><i class="fa-solid fa-mortarboard" aria-label="mortarboard"></i> <br> Google <br> Scholar</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </b></div><b>
+</b></footer><b>
+
+
+
+
+</b></b></body></html>
