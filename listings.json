@@ -24,6 +24,7 @@
   {
     "listing": "/OB Blog/BlogIndex.html",
     "items": [
+      "/OB Blog/posts/HIVTestAndTreat/index.html",
       "/OB Blog/posts/HIV2023stats/index.html",
       "/OB Blog/posts/MarkdownEditorsDissertation/index.html",
       "/OB Blog/posts/quartzy_presentation/index.html",
@@ -37,6 +38,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/OB Blog/posts/HIVTestAndTreat/index.html",
       "/OB Blog/posts/HIV2023stats/index.html",
       "/OB Blog/posts/MarkdownEditorsDissertation/index.html",
       "/OB Blog/posts/Shiny_for_HIV-incidence/index.html",
