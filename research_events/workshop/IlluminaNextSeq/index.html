@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Bixa Ogola">
+
+<title>Deep Dive into Illumina’s NextSeq 1000: A 5-Day Genomic Odyssey – Bixa O. Ogola</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-bfc357b864b461eebe5da0e9bd65ae0a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-66041a7fffc713a4157b61b5591f7db8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-bfc357b864b461eebe5da0e9bd65ae0a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-W78SCS8X63"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-W78SCS8X63', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: gray;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: gray;
+background: thumbnail.jpg;
+      }
+</style>
+<script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=pub-1167530860690059" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Deep Dive into Illumina’s NextSeq 1000: A 5-Day Genomic Odyssey – Bixa O. Ogola">
+<meta property="og:description" content="1. Center of Prevention and Disease Control  &nbsp;&nbsp;&nbsp;(United States of America)  2. Kenya Medical Research Institute/Center of Global Health Research  &nbsp;&nbsp;&nbsp;&nbsp;(Kisian, Kenya)">
+<meta property="og:image" content="images/DNA2.jpg">
+<meta property="og:site_name" content="Bixa O. Ogola">
+<meta name="twitter:title" content="Deep Dive into Illumina’s NextSeq 1000: A 5-Day Genomic Odyssey – Bixa O. Ogola">
+<meta name="twitter:description" content="1. Center of Prevention and Disease Control  &nbsp;&nbsp;&nbsp;(United States of America)  2. Kenya Medical Research Institute/Center of Global Health Research  &nbsp;&nbsp;&nbsp;&nbsp;(Kisian, Kenya)">
+<meta name="twitter:image" content="images/DNA2.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-sm " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Bixa O. Ogola</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text"><i class="fa-solid fa-house-user"></i> Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../Projects/ProjectIndex.html"> 
+<span class="menu-text"><i class="bi bi-kanban-fill"></i> Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../publicationHOME.html"> 
+<span class="menu-text"><i class="bi bi-book-half"></i> Publications</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-i-classfa-regular-fa-calendar-checki-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text"><i class="fa-regular fa-calendar-check"></i> Research</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-i-classfa-regular-fa-calendar-checki-research">    
+        <li>
+    <a class="dropdown-item" href="../../../research_events/workshop/index.html">
+ <span class="dropdown-text"><i class="fa-solid fa-person-chalkboard"></i> Workshops</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-i-classfa-regular-fa-pen-to-squarei-blogs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text"><i class="fa-regular fa-pen-to-square"></i> Blogs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-i-classfa-regular-fa-pen-to-squarei-blogs">    
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/BlogIndex.html">
+ <span class="dropdown-text"><i class="fa-regular fa-pen-to-square"></i> Blogs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/Rstudio_versatility/index.html">
+ <span class="dropdown-text">1. RStudio functionalities beneficial for academics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/Shiny_for_HIV-incidence/index.html">
+ <span class="dropdown-text">2. Building an interactive web application using RStudio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/zotero_intro/index.html">
+ <span class="dropdown-text">3. Zotero - An Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/zotero_advantages/index.html">
+ <span class="dropdown-text">4. Zotero - Highlights and Lowlights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/bdfacspresto_presentation/index.html">
+ <span class="dropdown-text">5. BDFacsPresto CD4 cell counting presentation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/MarkdownEditorsDissertation/index.html">
+ <span class="dropdown-text">6. Markdown editors for long form academic document drafting</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/quartzy_presentation/index.html">
+ <span class="dropdown-text">7. QUARTZY - A Laboratory management application</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/HIV2023stats/index.html">
+ <span class="dropdown-text">8. 2023 HIV-1 estimates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/HIVTestAndTreat/index.html">
+ <span class="dropdown-text">9. UNAIDS targets to end AIDS epidemic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../OB Blog/posts/NotionLIMS/index.html">
+ <span class="dropdown-text">10. NOTION for Lab Procurement and Inventory Management</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text"><i class="fa-solid fa-eye"></i> Snapshot</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/ogola_bixa"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://za.linkedin.com/in/bixa-ogola-5bb72a8b"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Deep Dive into Illumina’s NextSeq 1000: A 5-Day Genomic Odyssey</h1>
+            <p class="subtitle lead"><span style="font-size:0.8em; color:orange">From DNA Fragments to Q30 Scores: A Bootcamp in Next-Gen Sequencing Mastery</span></p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">workshop</div>
+                <div class="quarto-category">NGS</div>
+                <div class="quarto-category">Illumina</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-left">
+
+      <div>
+      <div class="quarto-title-meta-heading">Assistant Principal Research Scientist</div>
+      <div class="quarto-title-meta-contents">
+               <p>Bixa Ogola </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Workshop start</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">30-June-2025</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Workshop end</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">04-July-2025</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">ORGANIZERS AND FUNDERS</div>
+      1. Center of Prevention and Disease Control <br> &nbsp;&nbsp;&nbsp;(United States of America) <br> 2. Kenya Medical Research Institute/Center of Global Health Research <br> &nbsp;&nbsp;&nbsp;&nbsp;(Kisian, Kenya)
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#deep-dive-into-illuminas-nextseq-1000-a-5-day-genomic-odyssey" id="toc-deep-dive-into-illuminas-nextseq-1000-a-5-day-genomic-odyssey" class="nav-link active" data-scroll-target="#deep-dive-into-illuminas-nextseq-1000-a-5-day-genomic-odyssey">Deep Dive into Illumina’s NextSeq 1000: A 5-Day Genomic Odyssey</a>
+  <ul class="collapse">
+  <li><a href="#sequencing-evolution-laying-the-foundation" id="toc-sequencing-evolution-laying-the-foundation" class="nav-link" data-scroll-target="#sequencing-evolution-laying-the-foundation">Sequencing Evolution – Laying the Foundation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
+
+
+
+
+
+<section id="deep-dive-into-illuminas-nextseq-1000-a-5-day-genomic-odyssey" class="level2">
+<h2 class="anchored" data-anchor-id="deep-dive-into-illuminas-nextseq-1000-a-5-day-genomic-odyssey">Deep Dive into Illumina’s NextSeq 1000: A 5-Day Genomic Odyssey</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prologue: The Hum of Discovery
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For those of us living in the trenches of genomics, the resonant hum of a sequencer isn’t mere background noise—it’s the pulse of revelation. Last week, that pulse came from Illumina’s NextSeq 1000. I joined a hands-on workshop at <a href="https://www.kemri.go.ke/centre-for-global-health-research-cghr-kisumu/">KEMRI/CGHR</a>, trading stale lectures for a five-day genomic bootcamp that fused theory with lab grit. This wasn’t just training; it was a masterclass in modern sequencing. Strap in: we’re dissecting DNA, algorithms, and the very edge of genomic innovation.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Illumina NextSeq-1.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Illumina NextSeq 1000 humming"><img src="images/Illumina NextSeq-1.jpg" width="753" height="649" alt="Illumina NextSeq 1000 humming" class="figure-img"></a></p>
+<figcaption>Illumina NextSeq 1000 humming</figcaption>
+</figure>
+</div>
+<section id="sequencing-evolution-laying-the-foundation" class="level3">
+<h3 class="anchored" data-anchor-id="sequencing-evolution-laying-the-foundation">Sequencing Evolution – Laying the Foundation</h3>
+<section id="from-sanger-to-supercomputing-in-a-box" class="level4">
+<h4 class="anchored" data-anchor-id="from-sanger-to-supercomputing-in-a-box">From Sanger to Supercomputing-in-a-Box</h4>
+<p>The workshop opened not with pipettes, but with a panoramic sweep through genomics’ defining moments. An Illumina Applications Specialist <a href="https://www.linkedin.com/in/dr-cecilia-rumberia-waruhiu-6a991721/?originalSubdomain=ke">Cecilia Rumberia</a> framed today’s tools by retracing biology’s core dogma—<strong>DNA → RNA → Protein</strong>—then marching through milestones:<br>
+- <strong>Sanger Sequencing (1977)</strong>: Artisanal, low-throughput, yet revolutionary.<br>
+- <strong>NGS Revolution (2000s)</strong>: Massively parallelized short-read sequencing.<br>
+- <strong>The Hi-Tech Present</strong>: Platforms like NextSeq 1000, marrying speed, accuracy, and scalability.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Illumina-NextSeq-2.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Timeline of sequencing technologies and platforms [@lu2025]"><img src="images/Illumina-NextSeq-2.jpeg" width="753" height="549" alt="Timeline of sequencing technologies and platforms (Lu et al. 2025)" class="figure-img"></a></p>
+<figcaption>Timeline of sequencing technologies and platforms <span class="citation" data-cites="lu2025">(<a href="#ref-lu2025" role="doc-biblioref">Lu et al. 2025</a>)</span></figcaption>
+</figure>
+</div>
+<p>We weren’t just learning <em>how</em> to sequence; we were learning <em>why</em> each leap mattered. The shift from capillary electrophoresis to flow-cell clustering didn’t just accelerate science—it democratized it.</p>
+</section>
+<section id="inside-the-nextseq-1000" class="level4">
+<h4 class="anchored" data-anchor-id="inside-the-nextseq-1000">Inside the NextSeq 1000</h4>
+<p>Our deep dive into Illumina’s <strong>DNA Prep workflow</strong> revealed six precision-engineered steps:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 37%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Step</strong></th>
+<th><strong>Key Innovation</strong></th>
+<th><strong>Why It Matters</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Tagmentation</strong></td>
+<td>Bead-Linked Transposomes (BLT)</td>
+<td>Fragments DNA <em>and</em> adds adapters in 5 minutes (vs.&nbsp;1hr+ with Nextera XT)</td>
+</tr>
+<tr class="even">
+<td><strong>2. Library Amplification</strong></td>
+<td>Dual-indexed PCR</td>
+<td>Unique IDs for 384+ samples in 8 cycles</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Normalization</strong></td>
+<td>Mathematical pooling</td>
+<td>Prevents “lane hogging” by over-amplified samples</td>
+</tr>
+<tr class="even">
+<td><strong>4. Cluster Gen</strong></td>
+<td>Bridge amplification</td>
+<td>Creates millions of clone clusters on flow cell</td>
+</tr>
+<tr class="odd">
+<td><strong>5. XLEAP-SBS</strong></td>
+<td>Novel polymerase + reversible terminators</td>
+<td><strong>&lt;0.1% error rate</strong>; 85%+ bases ≥ Q30</td>
+</tr>
+<tr class="even">
+<td><strong>6. Base Calling</strong></td>
+<td>Real-time image analysis</td>
+<td>Outputs FASTQ files in minutes</td>
+</tr>
+</tbody>
+</table>
+<p>The star? <strong>XLEAP-SBS chemistry</strong>. Its error-correcting polymerase felt like upgrading “from a typewriter to a quantum keyboard.” And <strong>DRAGEN</strong> (Dynamic Read Analysis for GENomics)? A bioinformatics Ferrari—compressing 20-hour analyses into 60 minutes via field-programmable gate arrays (FPGAs) hardware acceleration. For our lab’s pathogen surveillance work, this wasn’t luxury—it was lifesaving.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/IlluminaNextSeq1.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Cecilia presenting the different Sequencing chemistries offered by illumina"><img src="images/IlluminaNextSeq1.jpg" class="img-fluid figure-img" alt="Cecilia presenting the different Sequencing chemistries offered by illumina"></a></p>
+<figcaption>Cecilia presenting the different Sequencing chemistries offered by illumina</figcaption>
+</figure>
+</div>
+</section>
+<section id="bench-warriors-the-art-of-library-prep" class="level4">
+<h4 class="anchored" data-anchor-id="bench-warriors-the-art-of-library-prep">Bench Warriors – The Art of Library Prep</h4>
+<p>Day 2 vaulted us from theory into the trenches. With DNA from <strong>cultured bacteria</strong> and <strong>human isolates</strong>, we grappled with Illumina’s DNA Prep Kit. A critical lesson emerged: <strong>Input DNA is sacred</strong>. We quantified samples using <strong>Qubit Fluorometry</strong> - Targeting double-stranded DNA (dsDNA) with picogram sensitivity.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<em>Why Qubit?</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>With input DNA requirements spanning 1–500 ng, a 10% error could trash a $1,000 run. Spectrophotometry (A260) misreads ssDNA, RNA, and salts as “DNA.” Qubit’s dsDNA-specific dyes prevent this—a non-negotiable for clinical-grade prep.</p>
+</div>
+</div>
+<p>Armed with 30 µL of DNA, we executed:</p>
+<ol type="1">
+<li><p><strong>Tagmentation</strong>: Fragment DNA using Bead-linked transposomes (BLT)</p></li>
+<li><p><strong>Post-tagmentation cleanup</strong>: Eliminating non-fragmented DNA</p></li>
+<li><p><strong>PCR Amplification</strong>: Added unique dual indexes.</p></li>
+<li><p><strong>Library Cleanup</strong>: washed away unused PCR products.</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<em>The “Aha!” Moment</em>:<br>
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>BLT’s fragmentation/adapter-ligation was revelatory. It was more efficient and resulted in uniformly sized libraries compared to what we had from <a href="https://gitbixa.github.io/bixaogola/research_events/workshop/sequencing/">older kits (Nextera XT)</a></p>
+</div>
+</div>
+<p>Fueled by adrenaline and Kenyan coffee, we had 43 purified libraries. The sequencer awaited.</p>
+</section>
+<section id="normalization-nirvana-where-wet-lab-meets-excel" class="level4">
+<h4 class="anchored" data-anchor-id="normalization-nirvana-where-wet-lab-meets-excel">Normalization Nirvana – Where Wet Lab Meets Excel</h4>
+<p>Day 3 pivoted to analytics. We quantifying libraries via Qubit and then thawed the sequencing cartridge (at room temperature for 6 hours and then 16 hours at 2-8°C). Determining concentration (ng/µL) wasn’t enough—we needed <strong>fragment length</strong> to calculate <strong>molarity</strong> (nM).</p>
+<p>Enter the <strong>Agilent 4200 Tapestation</strong>:<br>
+- <strong>Sample</strong>: 1 µL library → High Sensitivity D5000 screentape.<br>
+- <strong>Output</strong>: Size distribution (peaks at 350–600 bp ideal).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<em>Pro Tip</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Libraries with broad peaks or adapter dimers (&lt;100 bp) were flagged for re-cleanup. However, Our library was sheer textbook-perfect.</p>
+</div>
+</div>
+<p>Normalization required every library to hit the <em>exact same molar concentration</em> in the pool. One miscalculation, and precious samples vanish in the data deluge.</p>
+<p>We wrestled with:</p>
+<p><span class="math display">\[      
+Molarity \ (nM) = \frac{Concentration \ (ng/µL)}{ 660 g/mol\ × \ Average\ fragment\ Size \ (bp)} × 10^6
+\]</span></p>
+<p>Then applied dilution factors to standardize all libraries to 4 nM.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<em>The Human Element</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Amid frantic Excel formulas, a colleague joked: <em>“Avogadro’s constant was a long lost school memory.”</em></p>
+</div>
+</div>
+</section>
+<section id="loading-the-beast-precision-under-pressure" class="level4">
+<h4 class="anchored" data-anchor-id="loading-the-beast-precision-under-pressure">Loading the Beast – Precision Under Pressure</h4>
+<p>With normalized libraries, we:<br>
+1. Pooled 43 samples into one tube.<br>
+2. Re-quantified the pool: <strong>1.9 ng/µL</strong> (Qubit).<br>
+</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<em>The Tension</em>:<br>
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>1.9 ng/µL was <em>just</em> below our 2 ng/µL target. A sigh of relief—it meant no re-pooling.</p>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Confirmed size: <strong>538 bp</strong> (Tapestation).<br>
+</li>
+<li>Diluted the library to 2 nM then 750 picomolar</li>
+<li>Diluted PhiX control to 760 picomolar</li>
+<li>We spiked in <strong>5% PhiX Control</strong>—Illumina’s gold standard for:
+<ul>
+<li><strong>Cluster Density Calibration</strong>: Optimizes signal-to-noise.<br>
+</li>
+<li><strong>Error Rate Validation</strong>: Measures base-calling accuracy.</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<em>Why spike with PhiX?</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Low-diversity libraries (e.g., amplicons) confuse sequencers. PhiX’s random sequence “teaches” the instrument phasing/prephasing parameters.</p>
+</div>
+</div>
+<p>Final steps:<br>
+1. Attached flow cell to the cartridge and load sample 2. Slid the cartridge into the NextSeq 1000.<br>
+2. The screen flashed: <em>“Run Started. 22h Remaining.”</em></p>
+</section>
+<section id="reaping-the-rewards-data-in-the-daylight" class="level4">
+<h4 class="anchored" data-anchor-id="reaping-the-rewards-data-in-the-daylight">Reaping the Rewards – Data in the Daylight</h4>
+<p>Day 5 was a day that the sequencer hummed its final note by generating an output of <strong>148.76 Gigabases</strong> (3.46 Gb/sample) with <strong>87.07% Bases ≥ Q30</strong> (exceeding Illumina’s 85% guarantee).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Decoding Q30
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A Q30 score means a 0.1% error probability (1 wrong base/1,000). For variant calling in pathogens, this isn’t stats—it’s diagnostic certainty.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Illumina-NextSeq-7.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Group photo next to the NextSeq 1000"><img src="images/Illumina-NextSeq-7.jpg" class="img-fluid figure-img" alt="Group photo next to the NextSeq 1000"></a></p>
+<figcaption>Group photo next to the NextSeq 1000</figcaption>
+</figure>
+</div>
+</section>
+<section id="epilogue-the-futures-hum" class="level4">
+<h4 class="anchored" data-anchor-id="epilogue-the-futures-hum"><strong>Epilogue: The Future’s Hum</strong></h4>
+<p>As we packed our lab coats, that sequencer hum lingered—a sonic emblem of biology’s new era. The NextSeq 1000 isn’t merely a tool; it’s a paradigm shift. With XLEAP-SBS accuracy, DRAGEN speed, and workflows forgiving enough for 1 ng inputs, genomics isn’t just for mega-labs anymore.</p>
+<p>This workshop didn’t just teach protocols. It proved that today in Kenya, we can sequence with the precision of Boston or Berlin. And <em>that</em> sound—the sound of equity in discovery—is the hum worth chasing.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Illumina-NextSeq-8.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Workshop group"><img src="images/Illumina-NextSeq-8.jpg" class="quarto-figure quarto-figure-center figure-img" width="803" height="649" alt="Workshop group"></a></p>
+</figure>
+</div>
+<figcaption>Workshop group</figcaption>
+</figure>
+</div>
+<b>
+
+
+</b></section><b>
+</b></section><b>
+</b></section><b>
+
+</b><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-lu2025" class="csl-entry" role="listitem">
+Lu, Ying, Mengfei Li, Zhendong Gao, Hongming Ma, Yuqing Chong, Jieyun Hong, Jiao Wu, Dongwang Wu, Dongmei Xi, and Weidong Deng. 2025. <span>“Advances in Whole Genome Sequencing: Methods, Tools, and Applications in Population Genomics.”</span> <em>International Journal of Molecular Sciences</em> 26 (1): 372. <a href="https://doi.org/10.3390/ijms26010372">https://doi.org/10.3390/ijms26010372</a>.
+</div>
+</div></section></div></main><b> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<script src="https://utteranc.es/client.js" repo="GitBixa/bixaogola" issue-term="pathname" theme="photon-dark" crossorigin="anonymous" async="">
+</script>
+</b></div><b> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://quarto.org/">
+<p>Built with <a href="https://quarto.org/">Quarto</a> v 1.7</p>
+</a>
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+<p><b>Copyright © 2025 Bixa Ogola<br><br><br>The views expressed on this site are my own and do not necessarily reflect those of any person(s) or instititution(s)</b></p><b>
+</b><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div><b>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Bixa-Ogola">
+<p><i class="fa-brands fa-researchgate" aria-label="researchgate"></i> <br> ResearchGate</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0002-0744-0602">
+<p><i class="fa-brands fa-orcid" aria-label="orcid"></i> <br> Orcid</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/ogola_bixa">
+<p><i class="fa-brands fa-twitter" aria-label="twitter"></i> <br> Twitter</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://za.linkedin.com/in/bixa-ogola-5bb72a8b">
+<p><i class="fa-brands fa-linkedin" aria-label="linkedin"></i> <br> LinkedIn</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="mailto:bixa.ogola@gmail.com">
+<p><i class="fa-solid fa-envelope" aria-label="envelope"></i> <br> Email</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://scholar.google.com/citations?user=lL6DTfUAAAAJ&amp;hl=en">
+<p><i class="fa-solid fa-mortarboard" aria-label="mortarboard"></i> <br> Google <br> Scholar</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </b></div><b>
+</b></footer><b>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</b></b></body></html>
